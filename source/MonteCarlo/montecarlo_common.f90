@@ -143,7 +143,7 @@ contains
 
       use Constants
       use InputData, only: ind_mom_type
-      use QHB, only : mix_beta
+      use QHB, only : mix_beta, do_mix
 
       !.. Implicit declarations
       implicit none
