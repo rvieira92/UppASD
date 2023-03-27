@@ -193,7 +193,7 @@ contains
       !< 2022-11 New feature: Mixing scheme
       if(do_qhb_mix=='Y'.and.de>0.0_dblprec) then
          call mix_beta(Temperature,temprescale,de,beta)
-         qhb_mix_T=1.0_dblprec/k_bolt/mix_beta
+         qhb_mix_T=1.0_dblprec/k_bolt/beta
       endif
       
 
