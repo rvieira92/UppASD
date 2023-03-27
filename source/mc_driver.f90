@@ -364,8 +364,8 @@ contains
                call calc_mavrg(Natom,Mensemble,emomM,mavg)
                write(*,'(2x,a,i3,a,f10.6)',advance='no') &
                   "MP MC ",mcmstep*100/(mcnstep),"% done. Mbar:",mavg
-               if(do_qhb_mix=='Y') then
-                  write(*,'(a,f8.5,a)') ". Tmix:",qhb_mix_T,"."
+               if(do_qhb_mix=='Y',advance='no') then
+                  write(*,'(a,f7.2)') ". Tmix:",qhb_mix_T
                end if 
                if(plotenergy>0) then
                   write(*,'(a,f12.6,a,f8.5,a)') ". Ebar:", totene,". U:",binderc,"."

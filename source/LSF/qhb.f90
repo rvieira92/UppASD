@@ -205,8 +205,6 @@ contains
 
       beta_new=log(alpha*(exp(de*(beta_classic-beta_qhb))-1)+1)
       beta_new=(beta_new/de)+beta_qhb
-
-      qhb_mix_T=beta_new/k_bolt
   
    end subroutine mix_beta
    
