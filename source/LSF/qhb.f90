@@ -13,6 +13,7 @@ module QHB
    ! Mixing scheme flags
    character(LEN=1) :: do_mix                  !< Do mixing statistics scheme (N/Y)
    character(LEN=2) :: mix_mode                !< Mixing function (LI/...) only LI/ implemented
+   real(dblprec)    :: mix_qhb_T               !< Sampling temperature (dE dependent)>
    public
 
 contains
@@ -204,6 +205,8 @@ contains
 
       beta_new=log(alpha*(exp(de*(beta_classic-beta_qhb))-1)+1)
       beta_new=(beta_new/de)+beta_qhb
+
+      mix_qhb_T=beta_new/k_bolt
   
    end subroutine mix_beta
    

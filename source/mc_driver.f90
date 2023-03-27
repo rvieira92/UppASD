@@ -242,7 +242,7 @@ contains
       use HamiltonianData
       use AutoCorrelation,       only : autocorr_sample, do_autocorr
       use ChemicalData, only : achtype
-      use QHB, only : qhb_rescale, do_qhb, qhb_mode
+      use QHB, only : qhb_rescale, do_qhb, qhb_mode, mix_qhb_T
       !use InducedMoments,        only : renorm_ncoup_ind
       use macrocells
       use optimizationRoutines
@@ -364,6 +364,9 @@ contains
                call calc_mavrg(Natom,Mensemble,emomM,mavg)
                write(*,'(2x,a,i3,a,f10.6)',advance='no') &
                   "MP MC ",mcmstep*100/(mcnstep),"% done. Mbar:",mavg
+               if(do_mix=='Y') then
+                  write(*,'(a,f8.5,a)') ". Tmix:",mix_qhb_T,"."
+               end if 
                if(plotenergy>0) then
                   write(*,'(a,f12.6,a,f8.5,a)') ". Ebar:", totene,". U:",binderc,"."
                else
