@@ -1283,17 +1283,17 @@ contains
             case('tcurie')
                read(ifile,*,iostat=i_err) tcurie
                if(i_err/=0) write(*,*) 'ERROR: Reading ',trim(keyword),' data',i_err
-			
-			! Mix scheme inside QHB module
-			
-			case('do_qhb_mix')
-               read(ifile,*,iostat=i_err) do_qhb
+
+            ! Mix scheme inside QHB module
+
+            case('do_qhb_mix')
+               read(ifile,*,iostat=i_err) do_qhb_mix
                if(i_err/=0) write(*,*) 'ERROR: Reading ',trim(keyword),' data',i_err
 
             case('qhb_mix_mode')
-               read(ifile,*,iostat=i_err) qhb_mode
+               read(ifile,*,iostat=i_err) qhb_mix_mode
                if(i_err/=0) write(*,*) 'ERROR: Reading ',trim(keyword),' data',i_err
-			   
+
             !------------------------------------------------------------------------
             ! END OF VARIABLES FOR QHB
             !------------------------------------------------------------------------
