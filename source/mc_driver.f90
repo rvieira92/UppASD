@@ -242,7 +242,7 @@ contains
       use HamiltonianData
       use AutoCorrelation,       only : autocorr_sample, do_autocorr
       use ChemicalData, only : achtype
-      use QHB, only : qhb_rescale, do_qhb, qhb_mode, mix_qhb_T
+      use QHB, only : qhb_rescale, do_qhb, qhb_mode, mix_qhb_T, do_mix
       !use InducedMoments,        only : renorm_ncoup_ind
       use macrocells
       use optimizationRoutines
