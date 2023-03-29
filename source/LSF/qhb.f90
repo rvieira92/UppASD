@@ -13,7 +13,9 @@ module QHB
    ! Mixing scheme flags
    character(LEN=1) :: do_qhb_mix                  !< Do mixing statistics scheme (N/Y)
    character(LEN=2) :: qhb_mix_mode                !< Mixing function (LI/...) only LI/ implemented
-   real(dblprec)    :: qhb_mix_T               !< Sampling temperature (dE dependent)>
+   real(dblprec) :: qhb_mix_T(2) = [0,0]           !< Buffered mix sampling temperature (dE dependent)
+                                                   ! qhb_mix_T(1) -> sum of Tmix=beta_mix/kb
+                                                   ! qhb_mix_T(2) -> number of elements summed 
    public
 
 contains

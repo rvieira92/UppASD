@@ -365,7 +365,9 @@ contains
                write(*,'(2x,a,i3,a,f10.6)',advance='no') &
                   "MP MC ",mcmstep*100/(mcnstep),"% done. Mbar:",mavg
                if(do_qhb_mix=='Y') then
-                  write(*,'(a,f7.2)',advance='no') ". Tmix:",qhb_mix_T
+                  write(*,'(a,f7.2)',advance='no') ". Tmix:",qhb_mix_T(1)/qhb_mix_T(2)
+                  ! Resets bufferred T_mix
+                  qhb_mix_T = [0,0]
                end if 
                if(plotenergy>0) then
                   write(*,'(a,f12.6,a,f8.5,a)') ". Ebar:", totene,". U:",binderc,"."
