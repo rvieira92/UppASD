@@ -242,7 +242,8 @@ contains
       use HamiltonianData
       use AutoCorrelation,       only : autocorr_sample, do_autocorr
       use ChemicalData, only : achtype
-      use QHB, only : qhb_rescale, do_qhb, qhb_mode, qhb_mix_T, do_qhb_mix
+      use QHB, only : qhb_rescale, do_qhb, qhb_mode, qhb_Tmix_prn,&
+             do_qhb_mix, qhb_Tmix_cumu 
       !use InducedMoments,        only : renorm_ncoup_ind
       use macrocells
       use optimizationRoutines
@@ -252,6 +253,10 @@ contains
       !
       integer :: cgk_flag, scount_pulse, bcgk_flag, cgk_flag_pc, mcmstep
       real(dblprec) :: temprescale,temprescalegrad,dummy,totene
+      
+      ! Mix quantum-classic temperature
+      real(dblprec) :: qhb_mix_T_mean = 0 
+      real(dblprec) :: qhb_mix_T_prn = -1 
 
       call timing(0,'MonteCarlo    ','ON')
 
@@ -356,6 +361,9 @@ contains
          !   emomM,emom,mmom,ind_mom_flag,hfield,do_dip,Num_macro,max_num_atom_macro_cell, &
          !   cell_index,macro_nlistsize,macro_atom_nlist,emomM_macro,emom_macro,           &
          !   mmom_macro,do_anisotropy)
+         
+         ! Calculate Tmix (classic+quantum Tsim)
+         call qhb_Tmix_cumu(mcmstep,cumu_step)
 
          ! Calculate and print m_avg
          if(mcnstep>20) then
@@ -365,7 +373,7 @@ contains
                write(*,'(2x,a,i3,a,f10.6)',advance='no') &
                   "MP MC ",mcmstep*100/(mcnstep),"% done. Mbar:",mavg
                if(do_qhb_mix=='Y') then
-                  write(*,'(a,f7.2)',advance='no') ". Tmix:",qhb_mix_T
+                  write(*,'(a,f7.2)',advance='no') ". Tmix:",qhb_Tmix_prn
                end if 
                if(plotenergy>0) then
                   write(*,'(a,f12.6,a,f8.5,a)') ". Ebar:", totene,". U:",binderc,"."

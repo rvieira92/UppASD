@@ -13,7 +13,9 @@ module QHB
    ! Mixing scheme flags
    character(LEN=1) :: do_qhb_mix                  !< Do mixing statistics scheme (N/Y)
    character(LEN=2) :: qhb_mix_mode                !< Mixing function (LI/...) only LI/ implemented
-   real(dblprec) :: qhb_mix_T                      !< Mix sampling temperature (dE dependent)
+   real(dblprec) :: qhb_Tmix = 0                  !< Mix sampling temperature (dE dependent)
+   real(dblprec) :: qhb_Tmix_buff = 0
+   real(dblprec) :: qhb_Tmix_prn = -1
 
    public
 
@@ -206,7 +208,24 @@ contains
 
       beta_new=log(alpha*(exp(-de*(beta_classic-beta_qhb))-1)+1)
       beta_new=-(beta_new/de)+beta_qhb
-  
+      
+      ! Calculates and stores Tmix from beta_new
+      qhb_Tmix=(1.0_dblprec/k_bolt/beta_new) 
+
    end subroutine mix_beta
-   
+
+   subroutine qhb_Tmix_cumu(mcmstep,cumu_step)
+       integer, intent(in) :: mcmstep, cumu_step
+
+       qhb_Tmix_buff = qhb_Tmix_buff + qhb_Tmix
+       
+       if (mod(mcmstep, cumu_step) == 0) then
+          qhb_Tmix_prn = qhb_Tmix_buff/cumu_step
+          qhb_Tmix_buff = 0
+       endif
+
+   end subroutine qhb_Tmix_cumu
+
+
+
 end module qhb

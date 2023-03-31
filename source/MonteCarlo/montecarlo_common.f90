@@ -143,7 +143,7 @@ contains
 
       use Constants
       use InputData, only: ind_mom_type
-      use QHB, only : mix_beta, do_qhb_mix, qhb_mix_T
+      use QHB, only : mix_beta, do_qhb_mix
 
       !.. Implicit declarations
       implicit none
@@ -193,7 +193,6 @@ contains
       !< 2022-11 New feature: Mixing scheme
       if(do_qhb_mix=='Y'.and.de>0.0_dblprec) then
          call mix_beta(Temperature,temprescale,de,beta)
-         qhb_mix_T=(1.0_dblprec/k_bolt/beta)
       endif
       
 
