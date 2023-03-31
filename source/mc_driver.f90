@@ -253,10 +253,6 @@ contains
       !
       integer :: cgk_flag, scount_pulse, bcgk_flag, cgk_flag_pc, mcmstep
       real(dblprec) :: temprescale,temprescalegrad,dummy,totene
-      
-      ! Mix quantum-classic temperature
-      real(dblprec) :: qhb_mix_T_mean = 0 
-      real(dblprec) :: qhb_mix_T_prn = -1 
 
       call timing(0,'MonteCarlo    ','ON')
 
