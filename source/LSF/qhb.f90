@@ -13,9 +13,8 @@ module QHB
    ! Mixing scheme flags
    character(LEN=1) :: do_qhb_mix                  !< Do mixing statistics scheme (N/Y)
    character(LEN=2) :: qhb_mix_mode                !< Mixing function (LI/...) only LI/ implemented
-   real(dblprec) :: qhb_mix_T(2) = [0,0]           !< Buffered mix sampling temperature (dE dependent)
-                                                   ! qhb_mix_T(1) -> sum of Tmix=beta_mix/kb
-                                                   ! qhb_mix_T(2) -> number of elements summed 
+   real(dblprec) :: qhb_mix_T                      !< Mix sampling temperature (dE dependent)
+
    public
 
 contains
@@ -181,7 +180,7 @@ contains
 
       beta_qhb=1.0_dblprec/k_bolt/(temprescale*temperature+1.0d-15)
       beta_classic=1.0_dblprec/k_bolt/(temperature+1.0d-15)
-
+      
       ! Mixing functions - control how quantum W and classic W are mixed
       ! 'LI' - Linear mixing
       ! 'SI' - TODO(?) Sigmoide function would imply more free parameters :(
@@ -205,8 +204,8 @@ contains
       endif
       ! end of mixing functions block  
 
-      beta_new=log(alpha*(exp(de*(beta_classic-beta_qhb))-1)+1)
-      beta_new=(beta_new/de)+beta_qhb
+      beta_new=log(alpha*(exp(-de*(beta_classic-beta_qhb))-1)+1)
+      beta_new=-(beta_new/de)+beta_qhb
   
    end subroutine mix_beta
    
